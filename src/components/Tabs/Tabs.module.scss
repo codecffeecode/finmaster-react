@@ -1,0 +1,48 @@
+.tabsContainer {
+    width: 100%;
+    background-color: $white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+}
+
+.tabsList {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+        gap: 8px;
+    }
+}
+
+.tabButton {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    color: $gray;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $light;
+    }
+
+    &.active {
+        background-color: $teal;
+        color: $white;
+    }
+
+    @media (max-width: 768px) {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+.tabContent {
+    min-height: 400px;
+} 

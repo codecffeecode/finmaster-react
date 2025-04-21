@@ -1,0 +1,14 @@
+.dashboardContainer {
+    min-height: 100vh;
+    background-color: $body-bg;
+    padding: 24px;
+
+    @media (max-width: 768px) {
+        padding: 16px;
+    }
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+} 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header/HeaderContainer";
 import "@/styles/globals.scss";
+import Auth0ProviderWithHistory from "@/contexts/auth0";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -24,12 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-        {children}
-        <footer>
+        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Auth0ProviderWithHistory>
+          <Header />
+          {children}
+          <footer>
           <p>Footer</p>
         </footer>
+        </Auth0ProviderWithHistory>
       </body>
     </html>
   );
