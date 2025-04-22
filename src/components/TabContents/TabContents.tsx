@@ -1,4 +1,6 @@
 import styles from './TabContents.module.scss';
+import CreditContentComponent from '../CreditContent/CreditContent';
+import DebitContentComponent from '../DebitContent/DebitContent';
 
 export const TrackContent = () => (
     <div className={styles.tabContentSection}>
@@ -9,15 +11,13 @@ export const TrackContent = () => (
 
 export const CreditContent = () => (
     <div className={styles.tabContentSection}>
-        <h2 className={styles.title}>Credit Management</h2>
-        <p className={styles.description}>View and manage your credit accounts and transactions.</p>
+        <CreditContentComponent />
     </div>
 );
 
 export const DebitContent = () => (
     <div className={styles.tabContentSection}>
-        <h2 className={styles.title}>Debit Overview</h2>
-        <p className={styles.description}>Track your debit card transactions and balance.</p>
+        <DebitContentComponent />
     </div>
 );
 

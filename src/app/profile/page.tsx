@@ -2,14 +2,20 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import styles from './profile.module.scss';
+import { useRouter } from 'next/navigation';
 
 const ProfilePage = () => {
     const { user, logout, isLoading } = useAuth0();
     const [userName, setUserName] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
     const [lastLogin, setLastLogin] = useState<string>('');
+    const router = useRouter();
 
     useEffect(() => {
+        if (!isLoading && !user) {
+            return;
+        }
+
         if (user) {
             setUserName(user.name || 'User');
             setUserEmail(user.email || '');
@@ -26,7 +32,7 @@ const ProfilePage = () => {
                 }));
             }
         }
-    }, [user]);
+    }, [user, isLoading, router]);
 
     const handleLogout = () => {
         logout({ 
@@ -42,6 +48,23 @@ const ProfilePage = () => {
                 <div className={styles.profileCard}>
                     <div className={styles.loadingSpinner}></div>
                     <p>Loading your profile...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!user) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.profileCard}>
+                    <h2>Please Login</h2>
+                    <p>You need to be logged in to view your profile.</p>
+                    <button 
+                        className={styles.loginButton}
+                        onClick={() => router.push('/auth/login')}
+                    >
+                        Go to Login
+                    </button>
                 </div>
             </div>
         );
