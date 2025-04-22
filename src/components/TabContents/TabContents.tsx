@@ -1,13 +1,9 @@
 import styles from './TabContents.module.scss';
 import CreditContentComponent from '../CreditContent/CreditContent';
 import DebitContentComponent from '../DebitContent/DebitContent';
+import TrackContentComponent from '../TrackContent/TrackContent';
 
-export const TrackContent = () => (
-    <div className={styles.tabContentSection}>
-        <h2 className={styles.title}>Track Your Finances</h2>
-        <p className={styles.description}>Monitor your financial activities and transactions here.</p>
-    </div>
-);
+export const TrackContent = () => <TrackContentComponent />;
 
 export const CreditContent = () => (
     <div className={styles.tabContentSection}>
