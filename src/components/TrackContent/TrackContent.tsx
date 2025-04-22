@@ -56,10 +56,6 @@ const TrackContent = () => {
         where('userId', '==', user.sub)
       ];
       
-      // Add type filter if not 'all'
-      if (filterType !== 'all') {
-        constraints.push(where('type', '==', filterType));
-      }
       
       // Add sorting
       constraints.push(orderBy(sortBy, sortOrder));
