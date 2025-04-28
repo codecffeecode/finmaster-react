@@ -1,13 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { getDocuments, createDocument } from '@/lib/firebase/firestore';
+import { getDocuments, createDocument, FirestoreDocument } from '@/lib/firebase/firestore';
 import { where, QueryConstraint } from 'firebase/firestore';
 import styles from './DebitContent.module.scss';
 
 // Define the type for debit transactions
-interface DebitTransaction {
-  id: string;
+interface DebitTransaction extends FirestoreDocument {
   label: string;
   title: string;
   description: string;
@@ -15,6 +14,7 @@ interface DebitTransaction {
   date: string;
   userId: string;
   createdAt: string;
+  [key: string]: string | number | boolean | Date | null | undefined;
 }
 
 const DebitContent = () => {

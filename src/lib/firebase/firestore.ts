@@ -11,13 +11,14 @@ import {
   orderBy,
   DocumentData,
   QueryConstraint,
+  FieldValue,
 } from 'firebase/firestore';
 import { db } from './config';
 
 // Generic type for document data
 export type FirestoreDocument = {
   id: string;
-  [key: string]: unknown;
+  [key: string]: string | number | boolean | Date | null | undefined;
 };
 
 // Create a new document in a collection
@@ -59,7 +60,7 @@ export const updateDocument = async <T extends DocumentData>(
   data: Partial<T>
 ): Promise<void> => {
   const docRef = doc(db, collectionName, documentId);
-  await updateDoc(docRef, data);
+  await updateDoc(docRef, data as { [x: string]: FieldValue | Partial<unknown> | undefined });
 };
 
 // Delete a document
