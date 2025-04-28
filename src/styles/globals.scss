@@ -1,5 +1,6 @@
+@use "./_variables" as *;
+@use "sass:color";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
-@import "./_variables.scss";
 
 // Global styles below
 
@@ -35,6 +36,6 @@ a {
     transition: color 0.2s ease;
 
     &:hover {
-        color: darken($teal, 10%);
+        color: color.adjust($teal, $lightness: -10%);
     }
 }

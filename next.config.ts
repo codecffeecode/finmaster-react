@@ -3,8 +3,11 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   sassOptions: {
-    includePaths: ['./src/styles'],
-    prependData: `@import "src/styles/_variables.scss";`
+    includePaths: ['./src'],
+    prependData: `
+      @use "src/styles/_color" as *;
+      @use "src/styles/_typography" as *;
+    `
   }
 };
 

@@ -1,4 +1,4 @@
-@import "./_color.scss";
-@import "./_typography.scss";
+@forward "./_color";
+@forward "./_typography";
 
 // Add any other shared variables here 
