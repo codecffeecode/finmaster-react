@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
 import styles from './page.module.scss';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import CustomCalendar from '@/components/CustomCalendar/CustomCalendar';
 
@@ -152,6 +151,26 @@ const AnalysisPage = () => {
           <h2>Please Login</h2>
           <p>You need to be logged in to view your analysis.</p>
         </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.messageCard}>
+          <h2>Error</h2>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.loadingSpinner}></div>
+        <p>Loading transactions...</p>
       </div>
     );
   }

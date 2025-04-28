@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { getDocuments } from '@/lib/firebase/firestore';
 import { where, orderBy, QueryConstraint, limit, startAfter, query, getDocs, DocumentData, collection } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
 import styles from './TrackContent.module.scss';
@@ -202,6 +201,9 @@ const TrackContent = () => {
       <div className={styles.contentWrapper}>
         <div className={styles.headerSection}>
           <h2 className={styles.sectionTitle}>All Transactions</h2>
+          <div className={styles.pageInfo}>
+            Page {currentPage}
+          </div>
           
           <div className={styles.filterSection}>
             <div className={styles.searchBox}>

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getDocuments, createDocument } from '@/lib/firebase/firestore';
-import { where, orderBy, QueryConstraint } from 'firebase/firestore';
+import { where, QueryConstraint } from 'firebase/firestore';
 import styles from './CreditContent.module.scss';
 
 // Define the type for credit transactions
@@ -181,7 +181,7 @@ const CreditContent = () => {
             <div className={styles.loadingSpinner}></div>
           ) : transactions.length === 0 ? (
             <div className={styles.emptyState}>
-              <p>You don't have any credit transactions yet.</p>
+              <p>You don&apos;t have any credit transactions yet.</p>
               <p>Add your first transaction using the form below.</p>
             </div>
           ) : (

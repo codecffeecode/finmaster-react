@@ -17,7 +17,7 @@ import { db } from './config';
 // Generic type for document data
 export type FirestoreDocument = {
   id: string;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 // Create a new document in a collection
@@ -74,8 +74,8 @@ export const deleteDocument = async (
 // Helper function to create a query with multiple conditions
 export const createQuery = (
   field: string,
-  operator: any,
-  value: any,
+  operator: '==' | '!=' | '<' | '<=' | '>' | '>=' | 'array-contains' | 'array-contains-any' | 'in' | 'not-in',
+  value: string | number | boolean | Date | Array<string | number | boolean | Date>,
   orderByField?: string,
   orderDirection: 'asc' | 'desc' = 'desc'
 ) => {

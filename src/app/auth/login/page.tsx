@@ -35,7 +35,7 @@ const LoginPage = () => {
                     </div>
                     
                     <p className={styles.signupLink}>
-                        Don't have an account?{' '}
+                        Don&apos;t have an account?{' '}
                         <a href="/auth/signup">Sign up</a>
                     </p>
                 </div>
