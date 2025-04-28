@@ -8,12 +8,17 @@ import styles from './page.module.scss';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import CustomCalendar from '@/components/CustomCalendar/CustomCalendar';
 
 interface Transaction {
   id: string;
   amount: number;
   date: string;
   type: 'credit' | 'debit';
+  userId: string;
+  title?: string;
+  description?: string;
+  label?: string;
 }
 
 const AnalysisPage = () => {
@@ -42,7 +47,7 @@ const AnalysisPage = () => {
         ...doc.data(),
         id: doc.id,
         type: 'credit' as const
-      }));
+      })) as Transaction[];
       allTransactions = [...allTransactions, ...creditTransactions];
 
       // Fetch debit transactions
@@ -55,7 +60,7 @@ const AnalysisPage = () => {
         ...doc.data(),
         id: doc.id,
         type: 'debit' as const
-      }));
+      })) as Transaction[];
       allTransactions = [...allTransactions, ...debitTransactions];
 
       setTransactions(allTransactions);
@@ -230,34 +235,61 @@ const AnalysisPage = () => {
         <div className={styles.section}>
           <h2>Daily Transactions</h2>
           <div className={styles.calendarContainer}>
-            <Calendar
-              onChange={setSelectedDate}
-              value={selectedDate}
-              tileContent={({ date }) => {
-                const dayTransactions = getTransactionsForDate(date);
-                const total = dayTransactions.reduce((sum, t) => sum + t.amount, 0);
-                return total > 0 ? (
-                  <div className={styles.calendarAmount}>
-                    {formatCurrency(total)}
-                  </div>
-                ) : null;
-              }}
-            />
+            <div className={styles.calendarSection}>
+              <CustomCalendar
+                value={selectedDate}
+                onChange={setSelectedDate}
+                tileContent={({ date }) => {
+                  const dayTransactions = getTransactionsForDate(date);
+                  const total = dayTransactions.reduce((sum, t) => sum + t.amount, 0);
+                  return total > 0 ? (
+                    <div className={styles.calendarAmount}>
+                      {formatCurrency(total)}
+                    </div>
+                  ) : null;
+                }}
+              />
+            </div>
             <div className={styles.selectedDateTransactions}>
-              <h3>Transactions for {selectedDate.toLocaleDateString()}</h3>
+              <div className={styles.transactionHeader}>
+                <h3>Transactions for {selectedDate.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}</h3>
+                <div className={styles.transactionSummary}>
+                  <span className={styles.totalLabel}>Total:</span>
+                  <span className={styles.totalAmount}>
+                    {formatCurrency(selectedDateTransactions.reduce((sum, t) => sum + t.amount, 0))}
+                  </span>
+                </div>
+              </div>
               {selectedDateTransactions.length > 0 ? (
-                <ul>
+                <ul className={styles.transactionList}>
                   {selectedDateTransactions.map(t => (
                     <li key={t.id} className={styles.transactionItem}>
-                      <span className={t.type === 'credit' ? styles.credit : styles.debit}>
-                        {t.type.toUpperCase()}
+                      <div className={styles.transactionInfo}>
+                        <span className={t.type === 'credit' ? styles.credit : styles.debit}>
+                          {t.type.toUpperCase()}
+                        </span>
+                        <span className={styles.transactionTime}>
+                          {new Date(t.date).toLocaleTimeString('en-US', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </span>
+                      </div>
+                      <span className={`${styles.transactionAmount} ${t.type === 'credit' ? styles.creditAmount : styles.debitAmount}`}>
+                        {formatCurrency(t.amount)}
                       </span>
-                      <span>{formatCurrency(t.amount)}</span>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p>No transactions for this date</p>
+                <div className={styles.noTransactions}>
+                  <p>No transactions for this date</p>
+                </div>
               )}
             </div>
           </div>
