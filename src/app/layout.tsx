@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header/HeaderContainer";
 import "@/styles/globals.scss";
 import Auth0ProviderWithHistory from "@/contexts/auth0";
+import FooterComponent from '@/components/Footer/FooterComponent';
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,9 +30,7 @@ export default function RootLayout({
         <Auth0ProviderWithHistory>
           <Header />
           {children}
-          <footer>
-          <p>Footer</p>
-        </footer>
+          <FooterComponent />
         </Auth0ProviderWithHistory>
       </body>
     </html>
