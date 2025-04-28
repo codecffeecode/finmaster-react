@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import styles from './profile.module.scss';
 import { useRouter } from 'next/navigation';
+import { FaUser } from 'react-icons/fa';
 
 const ProfilePage = () => {
     const { user, logout, isLoading } = useAuth0();
@@ -74,13 +75,7 @@ const ProfilePage = () => {
         <div className={styles.container}>
             <div className={styles.profileCard}>
                 <div className={styles.avatar}>
-                    {user?.picture ? (
-                        <img src={user.picture} alt={userName} />
-                    ) : (
-                        <div className={styles.avatarPlaceholder}>
-                            {userName.charAt(0).toUpperCase()}
-                        </div>
-                    )}
+                    <FaUser className={styles.userIcon} />
                 </div>
                 <h1 className={styles.userName}>{userName}</h1>
                 {userEmail && <p className={styles.userEmail}>{userEmail}</p>}
